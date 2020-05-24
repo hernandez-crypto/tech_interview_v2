@@ -57,16 +57,18 @@ const removeDuplicates = (ll) => {
     and partition in place. If a node is less than x then it would be left in place if x hasn't been found, if x has been found then the node would have to be 
     pushed back until it is on the left of x. If a node that is greater than x is found then it will be pushed forward if x hasn't been found (
     <- for this last bit you can record values which would eventually get pushed onto the end of the linked list.), if x has been found you can then it 
-    would be left in place. 
-*/ /*
-    Question: Sum Lists. You have two numbers represented by a linked lists, where each node contains a single digit.
-    The digits are stored in reverse order, such that the 1's digit is at the head of the list. Write a function 
-    that adds the two numbers and returns the sum as a linked list.
+    would be left in place. Honestly, the first solution seems much simpler so I will start with that.
+*/
 
-    Solution: Iterate through both linked lists. Construct the numbers using a string / array. Add the numbers up.
-    Turn the sum into a string / array. Iterate through and construct the linked list which will be returned.
-    
-*/ /*
+const Partition = (ll, x) => {
+  // iterate through the linked list
+  // record two arrays, one containing values less than x the other more or equal to x
+  // if (currentNode.value < x) arrayOne.push(currentNode.value)
+  // else if (currentNode.value >= x) arrayTwo.push(currentNode.value) // <-- we will have to make sure that x is at the front of the array
+  // here, the order is really important for this problem. We can use a shift or unshift method for that.
+  // construct the linked list which will then be partitioned by iterating through arrayOne, then arrayTwo.
+  // return the linked list
+}; /*
     Question: Palindromes. Implement a function to check if a linked list is a palindrome.
     
     Solution: Turn ll into string and perform regular palindrome checking algorithm. <-- string turned into object that has keys with values within the domain of 2^n 
@@ -84,6 +86,16 @@ const removeDuplicates = (ll) => {
     deduce it to just one variable. But it basically, a while loop that iterates simultaneously on both linked lists. When the value from
     one linked list is iterated on is equal to the other linked list, then return that node or value as the intersection.
 
+    
+*/
+
+/*
+    Question: Sum Lists. You have two numbers represented by a linked lists, where each node contains a single digit.
+    The digits are stored in reverse order, such that the 1's digit is at the head of the list. Write a function 
+    that adds the two numbers and returns the sum as a linked list.
+
+    Solution: Iterate through both linked lists. Construct the numbers using a string / array. Add the numbers up.
+    Turn the sum into a string / array. Iterate through and construct the linked list which will be returned.
     
 */
 
