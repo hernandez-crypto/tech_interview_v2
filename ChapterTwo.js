@@ -21,14 +21,28 @@ class LinkedList {
     appeared or not. If it hasn't, then set that value to one on the hashmap and iterate to the next
     value. If it has, then reassign the this.next pointer to point to the next node in the list to
     delete the node.
-*/ /*
-    Question: Delete Middle Node. Implement an algorithm to delete a node in the middle (ie. Any node but the first 
-    and last node, not necessarily the exact middle node of a singly linked list, given only access to that 
-    node.
+*/
 
-    Solution: A really easy solution that would fit these constraints could be to just iterate three times 
-    and make sure that a linked list was at least 3 nodes long. If it is, then delete the 2nd node.
-*/ /*
+const removeDuplicates = (ll) => {
+  const head = ll.head;
+  let prevNode = ll.head;
+  let currentNode = prevNode.next;
+  let returnLL = new LinkedListList();
+  let hash = { [ll.head.value]: 1 };
+
+  while (currentNode.value !== null) {
+    if (!hash[currentNode.value]) {
+      hash[currentNode.value] = 1;
+      prevNode.next = currentNode.next;
+      currentNode = currentNode.next;
+    } else {
+      prevNode = currentNode;
+      currentNode = currentNode.next;
+    }
+  }
+  returnLL.head = head;
+  return returnLL;
+}; /*
     Question: Partition. Write code to partition a linked list around a value x, such that all 
     nodes less than x come before all nodes greater than or equal to x. If x is contained within 
     the list, the values of x only neded to be after the elements less than x. The partiton 
@@ -71,6 +85,15 @@ class LinkedList {
     one linked list is iterated on is equal to the other linked list, then return that node or value as the intersection.
 
     
+*/
+
+/*
+    Question: Delete Middle Node. Implement an algorithm to delete a node in the middle (ie. Any node but the first 
+    and last node, not necessarily the exact middle node of a singly linked list, given only access to that 
+    node.
+
+    Solution: A really easy solution that would fit these constraints could be to just iterate three times 
+    and make sure that a linked list was at least 3 nodes long. If it is, then delete the 2nd node.
 */
 
 /*
