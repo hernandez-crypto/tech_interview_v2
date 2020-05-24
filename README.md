@@ -20,3 +20,5 @@ new ones :)
 ##### Chapter 5 - 6 : Solutions
 
 ### Free Study Resource !
+
+Edit : Had dates posted on here but I can't solve these that easily, just gonna try and take my time with these problems.
