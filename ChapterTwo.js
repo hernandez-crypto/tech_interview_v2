@@ -283,7 +283,7 @@ const returnKToLast = (ll, k) => {
     Question: Loop Detection. Given a circular linked list, implement an algorithm that returns the node at the
     beginning of the loop.
 
-    Solution: Just return the head of the list. Assuming the input is correct this should be. This is a constant operation.
+    Solution: Just return the head of the list. Assuming the input these loops start at the head then it should be right, I think.
 */
 
 // Given a circular linked list, so assuning there is atleast two nodes -> ll.head !== null
