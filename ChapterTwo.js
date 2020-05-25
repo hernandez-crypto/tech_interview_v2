@@ -107,7 +107,60 @@ const Partition = (ll, x) => {
     depending on what the index is. If the index is less than half the length of the string, then it will add characters onto the stack. 
     If the index is more than half the length of the string, then it will pop items off the stack. Linear solution, best case is the program
     fails and the ll is not a palindrome.
-*/ /*
+*/
+
+const exponentOfTwo = (num) => {
+  // Runtime is faster than linear. ~ O(log(n))
+  let currentValue = 0;
+  for (let i = 1; currentValue <= num; i++) {
+    currentValue = Math.pow(2, i);
+    if (currentValue === num) return true;
+    else if (currentValue > num) return false;
+  }
+  return null;
+};
+
+// ^ imported from chapterOne
+
+const palindromes = (ll) => {
+  // turn linked list into an object
+  let prevNode = ll.head;
+  let currentNode = prevNode.next;
+  let length = 0;
+  let obj = { [prevNode.value]: 1 };
+  while (currentNode.next !== null) {
+    obj[currentNode.value]
+      ? obj[currentNode.value]++
+      : (obj[currentNode.value] = 1);
+    length++;
+    prevNode = prevNode.next;
+  }
+
+  // check if values are within domain 2^n;
+  let values = Object.values(obj);
+  if (length % 2 === 0) {
+    // if even
+    for (let i = 0; i < values.length; i++) {
+      let boolean = exponentOfTwo(values[i]);
+      if (!boolean) return false;
+    }
+    return true;
+  }
+  if (length % 2 !== 0) {
+    // if odd
+    let singleOdd = true;
+    for (let i = 0; i < values.length; i++) {
+      if (values[i] === 1 && !singleOdd) return false;
+      let boolean = exponentOfTwo(values[i]);
+      if (!boolean && !singleOdd) return false;
+      if (values[i] === 1) singleOdd = false;
+    }
+    return true;
+  }
+  // check if values of keys of object, if they are in the domain of 2^n then return true;
+};
+
+/*
     Question: Intersection. Given two (singly) linked lists, determine if the two lists intersect. Return the 
     intersecting node. Note that the intersection is defined based on reference, not just value, That is, if the 
     kth node of the first linked list is the exact same node (by reference) as the jth node of the second linked 
