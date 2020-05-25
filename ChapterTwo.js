@@ -188,6 +188,7 @@ const intersection = (ll1, ll2) => {
         value: currentNode1.value,
         node: { nodeOne: currentNode1, nodeTwo: currentNode2 }
       };
+    prevNode = prevNode.next;
     i++;
   }
   return null;
