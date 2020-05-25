@@ -7,7 +7,7 @@ new ones :)
 
 #### TODO
 
-##### Chapter 1 - 2 :
+##### Chapter 1 - 2 : \0_0/
 
 ##### Chapter 1 - 2 : Solutions
 
