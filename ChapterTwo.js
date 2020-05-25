@@ -13,6 +13,18 @@ class LinkedList {
   constructor() {
     this.head = null;
   }
+  addNodeToEnd(node) {
+    if (this.head === null) {
+      this.head = node;
+      return;
+    } else {
+      let currentNode = this.head;
+      while (currentNode.next != null) {
+        currentNode = currentNode.next;
+      }
+      currentNode.next = node;
+    }
+  }
 } /*
     Question: Remove Duplicates. Write code to remove duplicates from an unsorted linked list. 
     How would you solve this problem if a temporary buffer is not allowed ?
@@ -33,11 +45,10 @@ const removeDuplicates = (ll) => {
   while (currentNode.value !== null) {
     if (!hash[currentNode.value]) {
       hash[currentNode.value] = 1;
-      prevNode.next = currentNode.next;
-      currentNode = currentNode.next;
+      prevNode = prevNode.next;
     } else {
-      prevNode = currentNode;
-      currentNode = currentNode.next;
+      hash[currentNode.value]++;
+      prevNode = prevNode.next;
     }
   }
   returnLL.head = head;
@@ -62,11 +73,31 @@ const removeDuplicates = (ll) => {
 
 const Partition = (ll, x) => {
   // iterate through the linked list
+  let currentNode = ll.head;
+  let nextNode = currentNode.next;
+  let arrayOne = [],
+    arrayTwo = []; // arrayOne is for values < x, arrayTwo is for values <= x
+  while (nextNode.value !== null) {
+    if (currentNode.value < x) arrayOne.push(x);
+    if (currentNode.value >= x) {
+      if (currentNode.value === x) arrayTwo.unshift(x);
+      else arrayTwo.push(x);
+    }
+    currentNode = nextNode;
+    nextNode = nextNode.next;
+  }
   // record two arrays, one containing values less than x the other more or equal to x
   // if (currentNode.value < x) arrayOne.push(currentNode.value)
   // else if (currentNode.value >= x) arrayTwo.push(currentNode.value) // <-- we will have to make sure that x is at the front of the array
   // here, the order is really important for this problem. We can use a shift or unshift method for that.
   // construct the linked list which will then be partitioned by iterating through arrayOne, then arrayTwo.
+  let arrayThree = [...arrayOne, ...arrayTwo];
+  let returnedLL = new LinkedList();
+  for (let i = 0; i < arrayThree.length; i++) {
+    if (i === 0) returnedLL.head = arrayThree[i];
+    else returnLL.addNodeToEnd(arrayThree[i]); // making a method that adds a node to the end of a linkedList constant -> linear process
+  }
+  return returnLL;
   // return the linked list
 }; /*
     Question: Palindromes. Implement a function to check if a linked list is a palindrome.
