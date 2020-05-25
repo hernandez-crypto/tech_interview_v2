@@ -203,6 +203,43 @@ const intersection = (ll1, ll2) => {
     
 */
 
+const sumLists = (ll1, ll2) => {
+  let arr = new Array(100); // an array that has accessible indexes -> arr[i] === true
+  let prevNode1 = ll1.head;
+  let currentNode1 = prevNode1.next;
+
+  let prevNode2 = ll2.head;
+  let currentNode2 = prevNode2.next;
+
+  let i = 0;
+
+  while (currentNode1 !== null || currentNode2 !== null) {
+    let bool1 = currentNode1 ? true : false;
+    let bool2 = currentNode2 ? true : false;
+    if (bool1 && bool2) arr[i] = currentNode1.value + currentNode2.value;
+    else if (bool1 && !bool2) arr[i] = currentNode1.value;
+    else if (!bool1 && bool2) arr[i] = currentNode2.value;
+  }
+
+  // need a method to correct value of numbers. Cant have a number that is more than 10 in any position on the array
+  let carryOver = 0;
+  for (let j = 0; j < arr.length; i++) {
+    if (arr[i] >= 10)
+      if (arr[i] === 10) {
+        arr[i + 1] += 1;
+        arr[i] = 0;
+      } else {
+        arr[i + 1] += 1;
+        arr[i] = arr[i] - 10;
+      }
+  }
+  let returnedLL = new LinkedList();
+
+  arr.forEach((value) => returnedLL.addNodeToEnd(new LinkedListNode(value)));
+
+  return returnedLL;
+};
+
 /*
     Question: Delete Middle Node. Implement an algorithm to delete a node in the middle (ie. Any node but the first 
     and last node, not necessarily the exact middle node of a singly linked list, given only access to that 
