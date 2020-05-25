@@ -122,7 +122,7 @@ const exponentOfTwo = (num) => {
 
 // ^ imported from chapterOne
 
-const palindromes = (ll) => {
+const PalindromesLL = (ll) => {
   // turn linked list into an object
   let prevNode = ll.head;
   let currentNode = prevNode.next;
@@ -172,7 +172,26 @@ const palindromes = (ll) => {
 
     
 */
+const intersection = (ll1, ll2) => {
+  let prevNode1 = ll1.head;
+  let currentNode1 = prevNode1.next;
 
+  let prevNode2 = ll2.head;
+  let currentNode2 = prevNode2.next;
+
+  let i = 0;
+
+  while (currentNode1.next !== null && currentNode2.next !== null) {
+    if (currentNode1.value === currentNode2.value)
+      return {
+        iteration: i,
+        value: currentNode1.value,
+        node: { nodeOne: currentNode1, nodeTwo: currentNode2 }
+      };
+    i++;
+  }
+  return null;
+};
 /*
     Question: Sum Lists. You have two numbers represented by a linked lists, where each node contains a single digit.
     The digits are stored in reverse order, such that the 1's digit is at the head of the list. Write a function 
