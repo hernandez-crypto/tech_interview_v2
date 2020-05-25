@@ -23,6 +23,7 @@ class LinkedList {
         currentNode = currentNode.next;
       }
       currentNode.next = node;
+      return;
     }
   }
 } /*
@@ -157,6 +158,7 @@ const PalindromesLL = (ll) => {
     }
     return true;
   }
+  return null;
   // check if values of keys of object, if they are in the domain of 2^n then return true;
 };
 
@@ -172,7 +174,7 @@ const PalindromesLL = (ll) => {
 
     
 */
-const intersection = (ll1, ll2) => {
+const Intersection = (ll1, ll2) => {
   let prevNode1 = ll1.head;
   let currentNode1 = prevNode1.next;
 
@@ -248,7 +250,13 @@ const sumLists = (ll1, ll2) => {
     Solution: A really easy solution that would fit these constraints could be to just iterate three times 
     and make sure that a linked list was at least 3 nodes long. If it is, then delete the 2nd node.
 */
-
+const deleteMiddleNode = (ll) => {
+  let prevNode = ll.head;
+  let currentNode = prevNode.next;
+  let nextNode = currentNode.next;
+  if (prevNode && currentNode && nextNode) prevNode.next = nextNode;
+  return prevNode;
+};
 /*
     Question: Return kth to last. Write a method to find the kth to last element of a singly linked list.
 
@@ -256,6 +264,21 @@ const sumLists = (ll1, ll2) => {
     A doubly linkedlist would help make this process easier. Or a length property on a linked list.
     
 */
+
+const returnKToLast = (ll, k) => {
+  // get length of the list
+  // may as well put values into an array
+  // so u can just return array[array.length - k]
+  let prevNode = ll.head;
+  let currNode = prevNode.next;
+  let arr = [prevNode.value];
+  while (currNode.next !== null) {
+    arr.push(currNode.value);
+    prevNode = prevNode.next;
+  }
+  if (k > arr.length) return null;
+  return new LinkedListNode(arr[arr.length - k]);
+};
 /*
     Question: Loop Detection. Given a circular linked list, implement an algorithm that returns the node at the
     beginning of the loop.
