@@ -285,3 +285,6 @@ const returnKToLast = (ll, k) => {
 
     Solution: Just return the head of the list. Assuming the input is correct this should be. This is a constant operation.
 */
+
+// Given a circular linked list, so assuning there is atleast two nodes -> ll.head !== null
+const loopDetection = (ll) => ll.head;
