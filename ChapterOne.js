@@ -245,6 +245,11 @@ console.log(permutationPalindrome('taco cat')); // true, 'tac ocat'
   shows up has to be in the domain of 2^n. Instead, the values just have to be even - so no remainder when divided by 2 recursively { n % 2 === 0 }.
   In an even length string, all values will have to be even. But in an odd length string, one value is allowed to be odd. This is because of the 
   middle position. If it is odd then the middle position is immutable even if it is read backwards.
+
+  -- An alternate solution to this would be to check if the characters are valid while sorting.
+
+  -- Another possible solution could be to turn the string into two arrays spliced in the middle. If it's odd, then exlude the center character.
+  Reverse one of the arrays and then compare the arrays. If they are even, then return true
 */
 
 /*
