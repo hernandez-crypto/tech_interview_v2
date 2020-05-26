@@ -5,6 +5,12 @@
 */
 
 /*
+
+**********************SOLUTION**********************
+
+*/
+
+/*
     Question 1: Is Unique. Implement an algorithm to determine if a string has all unique characters. 
     What if you cannot use additional data structures.
 
@@ -26,6 +32,39 @@ const isUnique = (s) => {
   }
   return true;
 };
+
+/*
+
+**********************SOLUTION**********************
+
+CTCI Solution Summary
+
+  1. Fist, ask if the string is unicode or ASCII. If it is not ASCII, then the we will have to increase the storage size. 
+  
+  2. Then, create an array of 128 characters long. There are only 128 possibilities before there has to be a repeat.
+  
+  3. Create an object that you will check against to see whether or not the character has appeared yet.
+
+  4. If a character has appeared, then return false. If it hasn't then just record it.
+
+
+  --
+  boolean isUniqueChars(String str) {
+    if (str.length() > 128) return false;
+
+    boolean[] char_set = new boolean[128];
+    for (int i = 0; i < str.length(); i++) {
+      int val = str.charAt(i);
+      if (char_set[val]) return false
+      char_set[val] = true;
+    }
+    return true;
+  }
+  --
+
+  ** If you can't use additional data structures, then using two for loops to check the string would be the solution. O(n^2) **
+
+*/
 
 // console.log(isUnique('qwertyuiop'));
 // console.log(isUnique('qwertyuiopp'));
@@ -64,6 +103,12 @@ const checkPermutation = (s1, s2) => {
 
 // checkPermutation('abcd', 'dcBA');
 // checkPermutation('abcs', 'assc');
+
+/*
+
+**********************SOLUTION**********************
+
+*/
 
 /*
     Question: URLify. Write a method to replace all spaces in a string with '%20'. You may assume that the string
