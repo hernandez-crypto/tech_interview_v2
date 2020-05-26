@@ -248,7 +248,7 @@ console.log(permutationPalindrome('taco cat')); // true, 'tac ocat'
 
   -- An alternate solution to this would be to check if the characters are valid while sorting. Honestly, this one just sounds kinda complex
   and the book even states that it is not more optimal, potentially less even. It's also kinda pointless because the final answer is reached
-  only at the end. This is also true in the second solution so why not just seperate the logic.
+  only at the end. This is also true in the first solution so why not just seperate the logic.
 
   -- There is another even more complex solution which I won't explain but it is linear just like the others. This solution isn't optimal because
   of the time it takes to type it lol.
