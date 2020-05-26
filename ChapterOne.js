@@ -256,9 +256,10 @@ console.log(permutationPalindrome('taco cat')); // true, 'tac ocat'
   -- Another possible solution could be to turn the string into two arrays spliced in the middle. If it's odd, then exlude the center character.
   Reverse one of the arrays and then compare the arrays. If they are even (contain the same values), then return true. I just made this one  up
   so I'm proud of that but the runtime is gonna be linear because of the second part where we compare each key / value. In the first part, JavaScript
-  .splice() function is worst case linear so that confirms it for JavaScript atleast. The spacetime is gonna be constant in this one because the info 
-  being recorded isn't increasing. It is constant from when it is inputted to when it is being recorded.
-
+  .splice() function is worst case linear so that confirms it for JavaScript atleast. This solution actually might be more optimal if the method
+  usedto compare the arrays was a constant operation. So assuming the comparison method was constant, which I thinkt there's a way. Then 
+  this solutions runtime would be dependant on the .splice() function && reverse runtime(linear). Which is worst case linear, and I can't find what the best case is. 
+  But if that method could be made consant then this method would have a faster runtime. Lots of assumtions tho so not sure.
 
 */
 
