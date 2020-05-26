@@ -40,7 +40,7 @@ CTCI Solution Summary
 
   1. Fist, ask if the string is unicode or ASCII. If it is not ASCII, then the we will have to increase the storage size. 
   
-  2. Then, create an array of 128 characters long. There are only 128 possibilities before there has to be a repeat.
+  2. Then, create an array of 128 items long, filling each value with a boolean. There are only 128 possibilities before there has to be a repeat.
   
   3. Create an object that you will check against to see whether or not the character has appeared yet.
 
@@ -107,6 +107,37 @@ const checkPermutation = (s1, s2) => {
 
 **********************SOLUTION**********************
 
+  Solution #1 - Sort the strings
+    - Actually really simple, can't believe I didn't think of it.
+    - If they are permutations, then they will have the same characters. If they are both sorted then the string returned by both should be the 
+    same. 
+    - The book says that this isn't the most optimal. The method used in the book was the internal .sort() function used by Java so the 
+    time complexity is whatever the runtime of that method is.
+
+  Solution #2 - Check if two strings have identical character counts
+    - Sorta like my solution. Except that they don't sort the object and then compare it. Instead, a second for loop is made and the keys are
+    individually checked against one another. This is more efficient then my solution, JavaScripts .sort runtime is nlogn which is scales slightly more
+    than n.
+
+  -- wtf java
+    boolean permutation(String s, String t) {
+      if (s.length() != t.length()) return false;
+
+      int[] letters = new int[128]; // Assumption
+
+      chars[] s_array = s.toCharArray)();
+
+      for (char c : s_array) letters[c]++ // count appearance of each char
+
+      for (int i = 0; i < t.length(); i++) {
+        int c = (int) t.charAt(i);
+        letters[c]--;
+        if (letters[c] < 0) return false
+      }
+      return true;
+    }
+  --
+
 */
 
 /*
@@ -121,13 +152,21 @@ const checkPermutation = (s1, s2) => {
 const URLify = (s, n, r = '%20') => {
   let sNew = '';
   for (let i = 0; i < n; i++) {
-    if (s[i] == ' ') sNew += r;
-    else sNew += s[i];
+    if (s[i] == ' ') {
+      sNew += r;
+      n -= r.length;
+    } else if (s[i] != ' ') sNew += s[i];
   }
   return sNew;
 };
 
-console.log(URLify('www.google.com/ yo/ yo', 17));
+console.log(URLify('www.google.com/ yo/ yo', 19));
+
+/*
+**********************SOLUTION**********************
+  SO I got this solution, but I didnt account for the fact that the '%20' takes up 3 spaces. So same approach except subract from the 'true length'
+  as you iterate through. ie. n -= r.length;
+*/
 
 /* 
     Question: Palindrome Permutation. Given a string, write a function to check if it is a permutation of a palindrome.
@@ -144,39 +183,42 @@ console.log(URLify('www.google.com/ yo/ yo', 17));
     Honestly, this one is pretty spicy
 */
 
-const returnSum = (arr) => {
-  let sum = 0;
-  arr.forEach((value) => (sum += value));
-  return sum;
-};
+// const returnSum = (arr) => {
+//   let sum = 0;
+//   arr.forEach((value) => (sum += value));
+//   return sum;
+// };
 
-const exponentOfTwo = (num) => {
-  // Runtime is faster than linear. ~ O(log(n))
-  let currentValue = 0;
-  for (let i = 1; currentValue <= num; i++) {
-    currentValue = Math.pow(2, i);
-    if (currentValue === num) return true;
-    else if (currentValue > num) return false;
-  }
-  return null;
-};
+// const exponentOfTwo = (num) => {
+//   // Runtime is faster than linear. ~ O(log(n))
+//   let currentValue = 0;
+//   for (let i = 1; currentValue <= num; i++) {
+//     currentValue = Math.pow(2, i);
+//     if (currentValue === num) return true;
+//     else if (currentValue > num) return false;
+//   }
+//   return null;
+// };
 
 const permutationPalindrome = (s) => {
   let chars = {};
+  let stringLength = 0;
+
   for (let i = 0; i < s.length; i++) {
     if (s[i] !== ' ') {
       if (!chars[s[i]]) chars[s[i]] = 1;
       else chars[s[i]]++;
+      stringLength++;
     }
   }
 
   let values = Object.values(chars);
-  let stringLength = returnSum(values); // length without spaces. s.length() would be much more optimal but it would account for white spaces too
+  // let stringLength = returnSum(values); // length without spaces. s.length() would be much more optimal but it would account for white spaces too
 
   if (stringLength % 2 === 0) {
     // if even
     for (let i = 0; i < values.length; i++) {
-      let boolean = exponentOfTwo(values[i]);
+      let boolean = values[i] % 2 === 0 ? true : false;
       if (!boolean) return false;
     }
     return true;
@@ -185,10 +227,9 @@ const permutationPalindrome = (s) => {
     // if odd
     let singleOdd = true;
     for (let i = 0; i < values.length; i++) {
-      if (values[i] === 1 && !singleOdd) return false;
-      let boolean = exponentOfTwo(values[i]);
+      let boolean = values[i] % 2 === 0 ? true : false;
       if (!boolean && !singleOdd) return false;
-      if (values[i] === 1) singleOdd = false;
+      if (!boolean) singleOdd = false;
     }
     return true;
   }
@@ -196,6 +237,15 @@ const permutationPalindrome = (s) => {
 };
 
 console.log(permutationPalindrome('taco cat')); // true, 'tac ocat'
+
+/*
+**********************SOLUTION**********************
+
+  I got this solution wrong and it's messy so this will be a good one. I made the mistake when I thought that the amount of times a character
+  shows up has to be in the domain of 2^n. Instead, the values just have to be even - so no remainder when divided by 2 recursively { n % 2 === 0 }.
+  In an even length string, all values will have to be even. But in an odd length string, one value is allowed to be odd. This is because of the 
+  middle position. If it is odd then the middle position is immutable even if it is read backwards.
+*/
 
 /*
     Question: One Away. There are three types of edits that can be perfomed on strings: insert a character, 
