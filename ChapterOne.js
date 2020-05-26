@@ -246,10 +246,20 @@ console.log(permutationPalindrome('taco cat')); // true, 'tac ocat'
   In an even length string, all values will have to be even. But in an odd length string, one value is allowed to be odd. This is because of the 
   middle position. If it is odd then the middle position is immutable even if it is read backwards.
 
-  -- An alternate solution to this would be to check if the characters are valid while sorting.
+  -- An alternate solution to this would be to check if the characters are valid while sorting. Honestly, this one just sounds kinda complex
+  and the book even states that it is not more optimal, potentially less even. It's also kinda pointless because the final answer is reached
+  only at the end. This is also true in the second solution so why not just seperate the logic.
+
+  -- There is another even more complex solution which I won't explain but it is linear just like the others. This solution isn't optimal because
+  of the time it takes to type it lol.
 
   -- Another possible solution could be to turn the string into two arrays spliced in the middle. If it's odd, then exlude the center character.
-  Reverse one of the arrays and then compare the arrays. If they are even, then return true
+  Reverse one of the arrays and then compare the arrays. If they are even (contain the same values), then return true. I just made this one  up
+  so I'm proud of that but the runtime is gonna be linear because of the second part where we compare each key / value. In the first part, JavaScript
+  .splice() function is worst case linear so that confirms it for JavaScript atleast. The spacetime is gonna be constant in this one because the info 
+  being recorded isn't increasing. It is constant from when it is inputted to when it is being recorded.
+
+
 */
 
 /*
@@ -269,6 +279,11 @@ const kAway = (s1, s2, k = 1) => {
   }
   return m >= 0;
 };
+
+/*
+
+**********************SOLUTION**********************
+*/
 
 /*
     Question: String Compression, implement a method to perform basic string compression using the counts of 
