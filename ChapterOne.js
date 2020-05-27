@@ -254,12 +254,13 @@ console.log(permutationPalindrome('taco cat')); // true, 'tac ocat'
   of the time it takes to type it lol.
 
   -- Another possible solution could be to turn the string into two arrays spliced in the middle. If it's odd, then exlude the center character.
-  Reverse one of the arrays and then compare the arrays. If they are even (contain the same values), then return true. I just made this one  up
-  so I'm proud of that but the runtime is gonna be linear because of the second part where we compare each key / value. In the first part, JavaScript
-  .splice() function is worst case linear so that confirms it for JavaScript atleast. This solution actually might be more optimal if the method
-  usedto compare the arrays was a constant operation. So assuming the comparison method was constant, which I thinkt there's a way. Then 
-  this solutions runtime would be dependant on the .splice() function && reverse runtime(linear). Which is worst case linear, and I can't find what the best case is. 
-  But if that method could be made consant then this method would have a faster runtime. Lots of assumtions tho so not sure.
+  Reverse one of the arrays and then compare the arrays. If they are even (contain the same values), then return true. I just made this one up
+  so I'm proud but the runtime is gonna be linear because of the second part where we compare each key / value. In the first part, JavaScript
+  .splice() function is worst case linear so that's good. This solution actually might be more optimal if the method
+  usedto compare the array was a constant operation. So assuming the comparison method was constant, which I thinkt there's a way. Then 
+  this solutions runtime would be dependant on the reverse runtime(linear) && splice() function. Which is worst case linear, and I can't find what the best case is. 
+  But if that method could be made consant then this method would have a faster runtime. Lots of assumtions tho so not sure. Also, you have to 
+  remove white spaces so it's more optimal to go with the the hashmap method.
 
 */
 
@@ -284,6 +285,35 @@ const kAway = (s1, s2, k = 1) => {
 /*
 
 **********************SOLUTION**********************
+  I got this wrong. There is an edge case where if you remove some character in the middle, then the indexing of the characters after
+  that weren't deleted get changed - which in my solution those are counted as edits which they aren't. Instead a while loop should be used 
+  and two pointers should be used to be able to deal with that. The runtime will be O(max(n,m)), because it'll run until the the longest string. 
+  You can tighten that up by checking simultaneously if k edits have been passed, if true then just return fals. Not sure how
+  to express that in big o notation.
+
+
+  --
+  boolean oneEditAway(String first, String second) {
+   if (Math.abs(first.length() - second.length()) > 1) return false;
+
+   String s1 = first.length() > second.length() ? first.length() : second.length(); // longer
+   String s2 = first.length() < second.length() ? first.length() : second.length(); // shorter
+
+   int index1 = 0;
+   int index2 = 0;
+
+   boolean foundDifference = false;
+   while(index1 < s1.length() && index2 < s2.length())  {
+   if (s2.charAt(index2) != s1.charAt(index1)) {
+    if(foundDifference) return false;
+    if (s2.length() === s1.length()) index2++
+   } else index2++;
+   index1++
+   }
+   return true;
+  }
+  --
+
 */
 
 /*
@@ -312,6 +342,15 @@ function stringCompression(s) {
   if (compressedString.length > s.length) return s;
   else return compressedString;
 }
+
+/*
+**********************SOLUTION**********************
+ linear runtime is the pretty much as good as it gets on unsorted lists / arrays
+
+ Something worth mentioning tho is that concatnation is costly in Java and the book comments on this and then says that it can be avoided 
+ by using a StringBuilder which can be googled.
+*/
+
 // console.log(stringCompression('aabcccccaaa')); //'a2b1c5a3'
 // console.log(stringCompression('xyzaaayyyyyy')); //'z1y1z1a3y6'
 
@@ -389,6 +428,15 @@ function rotateMatrixTwo(matrix) {
   return result;
 }
 
+/*
+**********************SOLUTION**********************
+
+Admittedly, the second solution was pulled from online. But the books solution is more confusing than that second solution so it's valuable.
+The runtime of my first solution is the same as the runtime for my first solution. O(n^2). If you can understand how to swap the indexes than this
+problem is easy.
+
+*/
+
 // console.log(rotateMatrix(matTwo));
 // console.log(rotateMatrixTwo(matOne));
 
@@ -438,6 +486,13 @@ let matThree = [
   [0, 1, 1, 1, 1, 1, 1]
 ];
 
+/*
+**********************SOLUTION**********************
+ I understood this problem well. The book also has a similar solution except theres information about optimizing according to the intricacies of
+ C++ so I'm not gonna metion that stuff. But the runtime is still linear so awesome. The basic approach was just to solve the problem without a computer,
+ then think about how you can turn those mental processes into computer processes.
+*/
+
 //console.log(zeroMatrix(matThree));
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -476,6 +531,23 @@ function cleanerIsSubstring(s1, s2) {
   if (s2s2.includes(s1)) return true;
   return false;
 }
+
+/*
+ **********************SOLUTION**********************
+ The solution provided by the book is similar to the second solution. I also pulled the second solution from Stack Overflow, but I can't 
+ believe I didn't think of this solution either. Obviously, the second solution is alot easier to remember so this problem should
+ just be memorized.
+
+ isSubstring(s1 = 'waterbottle', 'erbottlewat')
+
+ s2 = s2 + s2;
+
+ s1 = waterbottle
+ s2 = erbottle[waterbottle]wat < -- wouldn't actually inc. brackets, just wanna highlight the intuition
+
+ return s2.includes(s1)
+
+ */
 
 // console.log(isSubstring('waterbottle', 'erbottlewat'));
 // console.log(cleanerIsSubstring('waterbottle', 'erbottlewat'));
