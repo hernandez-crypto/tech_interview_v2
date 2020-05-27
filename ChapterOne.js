@@ -432,8 +432,7 @@ function rotateMatrixTwo(matrix) {
 **********************SOLUTION**********************
 
 Admittedly, the second solution was pulled from online. But the books solution is more confusing than that second solution so it's valuable.
-The runtime of my first solution is the same as the runtime for my first solution. O(n^2). If you can understand how to swap the indexes than this
-problem is easy.
+O(n^2). If you can understand how to swap the indexes than this problem is easy.
 
 */
 
