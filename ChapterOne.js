@@ -465,7 +465,7 @@ output:
 */
 
 function zeroMatrix(matrix) {
-  let newMatrix = JSON.parse(JSON.stringify(matrix));
+  let newMatrix = JSON.parse(JSON.stringify(matrix)); // Essential in this problem. Need a method of performing a deep copy because we will alter this object while sorting through original object. If you don't do a deep copy, then the object will mutate as you iterate through it which will alter your results.
   let zeroColumns = [];
   for (let i = 0; i < matrix.length; i++) {
     for (let j = 0; j < matrix[i].length; j++) {
