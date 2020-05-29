@@ -2,6 +2,10 @@
   Maybe worth looking into C++, I hear that they have some data structures and methods already implemented.
 */
 
+/*
+ **********************SOLUTION**********************
+ */
+
 class LinkedListNode {
   constructor(data, next = null) {
     this.data = data;
@@ -54,7 +58,49 @@ const removeDuplicates = (ll) => {
   }
   returnLL.head = head;
   return returnLL;
-}; /*
+};
+
+/*
+ **********************SOLUTION**********************
+ --
+void deleteDubs(LinkedListNode n) {
+  HashSet<Integer> set = new HashSet<Integer>();
+  LinkedListNode previous = null;
+  while (n != null) {
+    if (set.contains(n.data)) previous.next = n.next;
+    else {
+      set.add(n.data);
+      previous = n;
+    }
+    n = n.next
+  }
+}
+ --No Buffer - LinkedList
+ // This is basically two for loops on an array
+  / Differences are just in syntax, honestly I think LL are obselete but knowing how to recurse through them is still a good exercise
+  
+ void deleteDubs(LinkedListNode head) {
+  LinkedListNode current = head;
+  while (current != null) {
+    LinkedListNode runner = current;
+    while (runner.next != null) {
+      if (runner.next.data == current.data) {
+        runner.next = runner.next.next;
+      } else {
+        runner = runner.next;
+      }
+    }
+    current = current.next;
+  }
+ }
+
+
+
+
+ __
+ */
+
+/*
     Question: Partition. Write code to partition a linked list around a value x, such that all 
     nodes less than x come before all nodes greater than or equal to x. If x is contained within 
     the list, the values of x only neded to be after the elements less than x. The partiton 
@@ -283,7 +329,7 @@ const returnKToLast = (ll, k) => {
     Question: Loop Detection. Given a circular linked list, implement an algorithm that returns the node at the
     beginning of the loop.
 
-    Solution: Just return the head of the list. Assuming the input these loops start at the head then it should be right, I think.
+    Solution: Just return the head of the list. Assuming the input these loops start at is the head then it should be right, I think.
 */
 
 // Given a circular linked list, so assuning there is atleast two nodes -> ll.head !== null
