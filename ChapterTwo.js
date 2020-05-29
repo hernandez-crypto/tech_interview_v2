@@ -4,6 +4,9 @@
 
 /*
  **********************SOLUTION**********************
+
+ Text written in here is the verbal / code solution to the problem provided by the book.
+
  */
 
 class LinkedListNode {
@@ -60,6 +63,22 @@ const removeDuplicates = (ll) => {
   return returnLL;
 };
 
+const deleteDups = (n) => {
+  if (!n.head) return null;
+  let hashSet = {};
+  let previous = null; // Also, we iterate once because it makes it easier to abstract what the previous node is.s
+
+  while (n !== null) {
+    if (hashSet[n.data]) previous.next = n.next;
+    else {
+      hashSet[n.data] ? hashSet[n.data]++ : (hashSet[n.data] = 1); // if it is not hashed then set it to 1, else iterate it. This terenary is needed because in order to iterate, all values need to be numbers. Setting the key to a number lets you iterate.
+      previous = n;
+    }
+    n = n.next;
+  }
+  return n;
+};
+
 /*
  **********************SOLUTION**********************
  --
@@ -75,10 +94,27 @@ void deleteDubs(LinkedListNode n) {
     n = n.next
   }
 }
+
+
+const deleteDups = n => {
+  let hashSet = { [n.head.value] : 1}; // using an object over an array because its more efficient when you check for a value
+  let previous = n;              // Also, we iterate once because it makes it easier to abstract what the previous node is.\
+  n = n.next;
+
+  while (n !== null) {
+    if (hashSet[n.data]) previous.next = n.next; // removed n;
+    else {
+      hashSet[n.data] ? hashSet[n.data]++ : hashSet[n.data] = 1; // if it is not hashed then set it to 1, else iterate it. This terenary is needed because in order to iterate, all values need to be numbers. Setting the key to a number lets you iterate.
+      previous = n; // iterate  previous;
+    }
+    n = n.next;
+  }
+  return n;
+}
  --No Buffer - LinkedList
  // This is basically two for loops on an array
   / Differences are just in syntax, honestly I think LL are obselete but knowing how to recurse through them is still a good exercise
-  
+
  void deleteDubs(LinkedListNode head) {
   LinkedListNode current = head;
   while (current != null) {
@@ -140,13 +176,20 @@ const Partition = (ll, x) => {
   // construct the linked list which will then be partitioned by iterating through arrayOne, then arrayTwo.
   let arrayThree = [...arrayOne, ...arrayTwo];
   let returnedLL = new LinkedList();
-  for (let i = 0; i < arrayThree.length; i++) {
-    if (i === 0) returnedLL.head = arrayThree[i];
-    else returnLL.addNodeToEnd(arrayThree[i]); // making a method that adds a node to the end of a linkedList constant -> linear process
-  }
+
+  arrayThree.forEach((node) => returnedLL.addNodeToEnd(node)); // making a method that adds a node to the end of a linkedList constant -> linear process
+
   return returnLL;
   // return the linked list
-}; /*
+};
+
+/*
+ **********************SOLUTION**********************
+
+
+ */
+
+/*
     Question: Palindromes. Implement a function to check if a linked list is a palindrome.
     
     Solution: Turn ll into string and perform regular palindrome checking algorithm. <-- string turned into object that has keys with values within the domain of 2^n 
@@ -303,6 +346,24 @@ const deleteMiddleNode = (ll) => {
   if (prevNode && currentNode && nextNode) prevNode.next = nextNode;
   return prevNode;
 };
+
+/*
+ **********************SOLUTION**********************
+  In this problem, you are not given access to the head of the linked list, only that node (crap).The solution is simply to copy
+  the data from the next node over to the current node, and then to delete the next node.
+
+  --
+  boolean deleteNode(LinkedListNode n) {
+    if (n == null || n.next == null) return false;
+
+    LinkedListNode next = n.next;
+    n.data = next.data;
+    n.next = next.next;
+    return true;
+  }
+  --
+
+ */
 /*
     Question: Return kth to last. Write a method to find the kth to last element of a singly linked list.
 
@@ -312,19 +373,32 @@ const deleteMiddleNode = (ll) => {
 */
 
 const returnKToLast = (ll, k) => {
+  if (!ll.head) return null;
   // get length of the list
   // may as well put values into an array
   // so u can just return array[array.length - k]
+
   let prevNode = ll.head;
   let currNode = prevNode.next;
   let arr = [prevNode.value];
   while (currNode.next !== null) {
     arr.push(currNode.value);
-    prevNode = prevNode.next;
+    prevNode = currNode;
   }
   if (k > arr.length) return null;
-  return new LinkedListNode(arr[arr.length - k]);
+  return arr[arr.length - k];
 };
+
+/*
+ **********************SOLUTION**********************
+  Solution #1 : If the linked list size is known
+    If the  size of the linked list is know then just iterate to length - k. "Trivial" and not what the interviewer intended.
+
+  Solution #2 : Recursive
+    Find the length of the ll ; iterate to k and return that node.
+ 
+ */
+
 /*
     Question: Loop Detection. Given a circular linked list, implement an algorithm that returns the node at the
     beginning of the loop.
